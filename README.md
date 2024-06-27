@@ -22,12 +22,30 @@
    ]
    ```
 
-   - **Static:**
+   - **Static and Media:**
 
    ```python
-   import os
+   STATIC_URL = "static/"
+   MEDIA_URL = "media/"
 
-   STATICFILES_DIRS = [
-      os.path.join(BASE_DIR,'static')
+   STATIC_ROOT = BASE_DIR / "assets"
+   MEDIA_ROOT = BASE_DIR / "media"
+
+   STATICFILES_DIRS = [BASE_DIR / "static"]STATICFILES_DIRS = [
+         os.path.join(BASE_DIR,'static')
+      ]
+   ```
+
+## Urls:
+
+   - **Static and Media:**
+
+   ```python
+   from django.urls import re_path
+   from django.views.static import serve
+
+   urlpatterns = [
+      re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
+      re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
    ]
    ```
