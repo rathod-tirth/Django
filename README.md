@@ -1,6 +1,6 @@
 ## Settings:
 
-   - Setup for Template and static files for project base integration without app in settings.py
+   - Setup for Template and static files in settings.py
 
    - **Templates:**
 
@@ -49,3 +49,37 @@
       re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
    ]
    ```
+## Email:
+
+   - Setup for email with secure smtp settings in settings.py
+   - create `.env` file in the base project dir
+
+   ```text
+   DJANGO_SECRET_KEY=your_secret_key
+   DJANGO_DEBUG=True
+   EMAIL_HOST=smtp.example.com
+   EMAIL_PORT=587
+   EMAIL_HOST_USER=your_email@example.com
+   EMAIL_HOST_PASSWORD=your_password
+   ```
+
+   ```python
+   # settings.py
+   import environ
+
+   env = environ.Env(
+      # set casting, default value
+      DEBUG=(bool, False)
+   )
+
+   # reading .env file
+   environ.Env.read_env()
+
+   EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+   EMAIL_USE_TLS = True
+   EMAIL_HOST = env("EMAIL_HOST")
+   EMAIL_PORT = env("EMAIL_PORT")
+   EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+   EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+   ```
+
