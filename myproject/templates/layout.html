@@ -27,6 +27,9 @@
          <a href="{% url 'posts:new-post' %}">
             <span role="img" aria-label="New Post" title="New Post">🆕</span>
          </a> |
+         <a href="{% url 'users:send-email' %}">
+            <span role="img" aria-label="Send Email" title="Send Email">✉️</span>
+         </a> |
          <form class="logout" action={% url "users:logout" %} method="post">
             {% csrf_token %}
             <button class="logout-button" aria-label="User Logout" title="User Logout" >👋</button>
