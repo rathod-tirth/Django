@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 
 {% block title %}
-   Send Email
+   Send Email With Template
 {% endblock title %}
 
 {% block content %}
-   <h1>Send Email</h1>
+   <h1>Send Email With Template</h1>
    <form class="form-with-validation" action={% url "users:send-email" %} method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}

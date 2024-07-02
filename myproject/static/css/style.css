@@ -67,7 +67,8 @@ a:hover {
    gap: 0.5rem;
 }
 
-.form-with-validation input {
+.form-with-validation input,
+select {
    padding: 0.25rem;
    max-width: 300px;
 }

@@ -30,6 +30,9 @@
          <a href="{% url 'users:send-email' %}">
             <span role="img" aria-label="Send Email" title="Send Email">✉️</span>
          </a> |
+         <a href="{% url 'users:send-email-with-template' %}">
+            <span role="img" aria-label="Send Email With Template" title="Send Email With Template">📋</span>
+         </a> |
          <form class="logout" action={% url "users:logout" %} method="post">
             {% csrf_token %}
             <button class="logout-button" aria-label="User Logout" title="User Logout" >👋</button>
