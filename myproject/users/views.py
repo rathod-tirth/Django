@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
+from . import forms
+from .utils import send_mails
 
 
 # Create your views here.
@@ -33,3 +35,19 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         return redirect("posts:list")
+
+
+def send_email_view(request):
+    if request.method == "POST":
+        form = forms.SendEmailForm(request.POST, request.FILES)
+        # print(form)
+        if form.is_valid():
+            new_email = form.save(commit=False)
+            status = send_mails(new_email)
+            # print(new_email.subject)
+            new_email.status = status
+            new_email.save()
+            form = forms.SendEmailForm()
+    else:
+        form = forms.SendEmailForm()
+    return render(request, "users/send_email.html", {"form": form})
