@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from . import forms
-from .utils import send_mails, SendEmailMessage
+from .utils import send_mails, SendEmailMessage, SendEmailWithTemplate
 
 
 # Create your views here.
@@ -55,5 +55,22 @@ def send_email_view(request):
 
 
 def send_email_with_template_view(request):
-    form = forms.SendEmailWithTemplateForm()
+    if request.method == "POST":
+        form = forms.SendEmailWithTemplateForm(request.POST, request.FILES)
+        if form.is_valid():
+            subject = form.cleaned_data["subject"]
+            message = form.cleaned_data["message"]
+            username = form.cleaned_data["username"]
+            to_email = form.cleaned_data["to_email"]
+            template = form.cleaned_data["template"]
+            attachment = request.FILES.get("attachment")
+
+            SendEmailWithTemplate(
+                subject, message, username, to_email, template, attachment
+            )
+
+            form = forms.SendEmailWithTemplateForm()
+
+    else:
+        form = forms.SendEmailWithTemplateForm()
     return render(request, "users/send_email_with_template.html", {"form": form})

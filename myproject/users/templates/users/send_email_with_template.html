@@ -6,7 +6,7 @@
 
 {% block content %}
    <h1>Send Email With Template</h1>
-   <form class="form-with-validation" action={% url "users:send-email" %} method="post" enctype="multipart/form-data">
+   <form class="form-with-validation" action={% url "users:send-email-with-template" %} method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}
       <button class="form-submit" >Send</button>
