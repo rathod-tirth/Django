@@ -18,12 +18,14 @@ class SendEmailForm(forms.Form):
 
 class SendEmailWithTemplateForm(forms.Form):
     choices = (
-        ("1", "template1"),
-        ("2", "template2"),
-        ("3", "template3"),
-        ("4", "template4"),
+        ("users/email_template_4th_of_July.html", "4th Of July"),
+        ("users/email_template_father's_day.html", "Father's Day"),
+        ("users/email_template_hotel_offer.html", "Hotel Offer"),
     )
     subject = forms.CharField(max_length=100, required=True)
+    message = forms.CharField(
+        widget=forms.Textarea, label="Message (fallback message):", required=False
+    )
     username = forms.CharField(max_length=100, required=True)
     to_email = forms.EmailField(label="To", required=True)
     template = forms.ChoiceField(choices=choices, required=False)
